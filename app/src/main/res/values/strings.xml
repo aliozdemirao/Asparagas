@@ -3,4 +3,12 @@
 
     <string name="error_connection">Unable to fetch data, please check your internet connection and try again.</string>
     <string name="error_unknown">Unknown error occurred.</string>
+
+    <!-- Article Detail -->
+    <string name="article_default_title">No Title</string>
+    <string name="article_default_description">No Description</string>
+    <string name="article_default_published_at">Unknown Date</string>
+    <string name="article_default_source">Unknown Source</string>
+    <string name="article_default_author">Unknown Author</string>
+    <string name="article_default_content">No Content</string>
 </resources>

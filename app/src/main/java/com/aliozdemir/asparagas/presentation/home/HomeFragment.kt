@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aliozdemir.asparagas.databinding.FragmentHomeBinding
+import com.aliozdemir.asparagas.domain.model.Article
 import com.aliozdemir.asparagas.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,7 +47,7 @@ class HomeFragment : Fragment() {
             when (resource) {
                 is Resource.Success -> {
                     resource.data.articles?.let { articles ->
-                        homeAdapter = HomeAdapter(articles)
+                        homeAdapter = HomeAdapter(articles, ::navigateToDetail)
                         binding.rvNewsList.adapter = homeAdapter
                     }
                 }
@@ -60,11 +62,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        homeAdapter = HomeAdapter(emptyList())
+        homeAdapter = HomeAdapter(emptyList(), ::navigateToDetail)
         binding.rvNewsList.apply {
             adapter = homeAdapter
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         }
+    }
+
+    private fun navigateToDetail(article: Article) {
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(article)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

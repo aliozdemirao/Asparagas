@@ -8,6 +8,7 @@ import com.aliozdemir.asparagas.domain.model.Article
 
 class HomeAdapter(
     private val articles: List<Article?>?,
+    private val onClickListener: (article: Article) -> Unit
 ) : RecyclerView.Adapter<HomeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -18,7 +19,7 @@ class HomeAdapter(
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        articles?.get(position)?.let { holder.bind(it) }
+        articles?.get(position)?.let { holder.bind(it, onClickListener) }
     }
 
     override fun getItemCount(): Int {
