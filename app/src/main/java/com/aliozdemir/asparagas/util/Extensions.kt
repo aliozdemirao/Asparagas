@@ -2,8 +2,11 @@ package com.aliozdemir.asparagas.util
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.aliozdemir.asparagas.R
+import com.bumptech.glide.Glide
 
 fun View.applySystemInsetsPadding(
     applyLeft: Boolean = true,
@@ -40,4 +43,16 @@ fun View.applySystemInsetsMargin(
         }
         insets
     }
+}
+
+fun ImageView.loadImage(
+    url: String?,
+    placeholderResId: Int = R.drawable.breaking_news,
+    errorResId: Int = R.drawable.sorry
+) {
+    Glide.with(this.context)
+        .load(url)
+        .placeholder(placeholderResId)
+        .error(errorResId)
+        .into(this)
 }
