@@ -36,5 +36,9 @@
         android:id="@+id/detailFragment"
         android:name="com.aliozdemir.asparagas.presentation.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="article"
+            app:argType="com.aliozdemir.asparagas.domain.model.Article" />
+    </fragment>
 </navigation>
