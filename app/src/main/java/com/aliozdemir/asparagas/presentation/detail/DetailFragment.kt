@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.aliozdemir.asparagas.R
 import com.aliozdemir.asparagas.databinding.FragmentDetailBinding
 import com.aliozdemir.asparagas.domain.model.Article
+import com.aliozdemir.asparagas.util.applySystemInsetsPadding
 import com.aliozdemir.asparagas.util.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,6 +36,8 @@ class DetailFragment : Fragment() {
 
         val article = args.article
         displayArticleDetails(article)
+
+        view.applySystemInsetsPadding(applyLeft = false, applyTop = false, applyRight = false)
     }
 
     private fun displayArticleDetails(article: Article) {

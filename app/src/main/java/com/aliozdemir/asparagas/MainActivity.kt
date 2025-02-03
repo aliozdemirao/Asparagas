@@ -1,6 +1,7 @@
 package com.aliozdemir.asparagas
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -34,5 +35,12 @@ class MainActivity : AppCompatActivity() {
         binding.fragmentContainerView.applySystemInsetsPadding(applyBottom = false)
 
         binding.bottomNavigationView.applySystemInsetsMargin()
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bottomNavigationView.visibility = when (destination.id) {
+                R.id.detailFragment -> View.GONE
+                else -> View.VISIBLE
+            }
+        }
     }
 }
