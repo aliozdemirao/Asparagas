@@ -5,6 +5,9 @@ plugins {
     // Hilt
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+
+    // Navigation - Safe Args
+    alias(libs.plugins.navigation.safeargs.kotlin)
 }
 
 android {
@@ -53,4 +56,8 @@ dependencies {
     // Hilt
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.android)
+
+    // Navigation
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
 }

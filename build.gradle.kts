@@ -6,4 +6,7 @@ plugins {
     // Hilt
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.hilt) apply false
+
+    // Navigation - Safe Args
+    alias(libs.plugins.navigation.safeargs.kotlin) apply false
 }
