@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    // Hilt
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -45,4 +49,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Hilt
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.android)
 }
