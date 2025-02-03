@@ -9,4 +9,7 @@ plugins {
 
     // Navigation - Safe Args
     alias(libs.plugins.navigation.safeargs.kotlin) apply false
+
+    // Room
+    alias(libs.plugins.room) apply false
 }

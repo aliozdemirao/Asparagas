@@ -11,6 +11,9 @@ plugins {
     // Navigation - Safe Args - Parcelize
     alias(libs.plugins.navigation.safeargs.kotlin)
     alias(libs.plugins.kotlin.parcelize)
+
+    // Room
+    alias(libs.plugins.room)
 }
 
 val localProperties = Properties()
@@ -56,6 +59,9 @@ android {
         viewBinding = true
         buildConfig = true
     }
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
 }
 
 dependencies {
@@ -85,4 +91,9 @@ dependencies {
 
     // Glide
     implementation(libs.glide)
+
+    // Room
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
 }
