@@ -1,10 +1,13 @@
 package com.aliozdemir.asparagas.presentation.detail
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aliozdemir.asparagas.R
 import com.aliozdemir.asparagas.databinding.FragmentDetailBinding
@@ -20,6 +23,8 @@ class DetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: DetailFragmentArgs by navArgs()
+
+    private val viewModel: DetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +43,40 @@ class DetailFragment : Fragment() {
         displayArticleDetails(article)
 
         view.applySystemInsetsPadding(applyLeft = false, applyTop = false, applyRight = false)
+
+        setupToolbar(article)
+
+        viewModel.initializeBookmark(article)
+        observeViewModel()
+    }
+
+    private fun setupToolbar(article: Article) {
+        binding.topAppBar.apply {
+            setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+
+            setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.action_bookmark -> {
+                        viewModel.insertArticle(article)
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.isArticleBookmarked.observe(viewLifecycleOwner) { isBookmarked ->
+            val menuItem = binding.topAppBar.menu.findItem(R.id.action_bookmark)
+            if (isBookmarked) {
+                menuItem.icon?.setTint(Color.RED)
+            } else {
+                menuItem.icon?.setTint(Color.BLACK)
+            }
+        }
     }
 
     private fun displayArticleDetails(article: Article) {
