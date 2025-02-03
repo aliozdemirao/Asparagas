@@ -8,8 +8,9 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 
-    // Navigation - Safe Args
+    // Navigation - Safe Args - Parcelize
     alias(libs.plugins.navigation.safeargs.kotlin)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 val localProperties = Properties()
