@@ -59,6 +59,51 @@ class NewsRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getEverything(
+        query: String?,
+        searchIn: String?,
+        sources: String?,
+        domains: String?,
+        excludeDomains: String?,
+        from: String?,
+        to: String?,
+        language: String?,
+        sortBy: String?,
+        pageSize: Int?,
+        page: Int?,
+    ): Resource<News> {
+        return try {
+            Resource.Success(
+                withContext(Dispatchers.IO) {
+                    api.getEverything(
+                        query,
+                        searchIn,
+                        sources,
+                        domains,
+                        excludeDomains,
+                        from,
+                        to,
+                        language,
+                        sortBy,
+                        pageSize,
+                        page
+                    ).toNews()
+                }
+            )
+        } catch (e: Exception) {
+            return when (e) {
+                is IOException -> Resource.Error(context.getString(R.string.error_connection))
+                is HttpException -> {
+                    val errorResponse = e.response()?.errorBody()?.string()
+                    val apiError = parseErrorResponse(errorResponse)
+                    Resource.Error(apiError)
+                }
+
+                else -> Resource.Error(context.getString(R.string.error_unknown))
+            }
+        }
+    }
+
     private fun parseErrorResponse(errorResponse: String?): String {
         val jsonObject = errorResponse?.let { JSONObject(it) }
         if (jsonObject != null) {

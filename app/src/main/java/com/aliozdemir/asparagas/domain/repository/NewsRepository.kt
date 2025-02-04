@@ -14,6 +14,20 @@ interface NewsRepository {
         page: Int?,
     ): Resource<News>
 
+    suspend fun getEverything(
+        query: String?,
+        searchIn: String?,
+        sources: String?,
+        domains: String?,
+        excludeDomains: String?,
+        from: String?,
+        to: String?,
+        language: String?,
+        sortBy: String?,
+        pageSize: Int?,
+        page: Int?,
+    ): Resource<News>
+
     suspend fun insertArticle(article: Article)
     suspend fun deleteArticle(url: String)
     suspend fun getAllBookmarkedArticles(): List<Article>
